@@ -1,0 +1,352 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Kivid DS — Pear (verde) */
+  --color-pear-100: #E9FAF0;
+  --color-pear-200: #BFF2D4;
+  --color-pear-300: #90E0B1;
+  --color-pear-400: #65D493;
+  --color-pear-500: #3DCC78;
+  --color-pear-600: #37B86C;
+  --color-pear-700: #30A260;
+  --color-pear-800: #27824C;
+  --color-pear-900: #206B3F;
+
+  /* Kivid DS — Chia (neutros) */
+  --color-chia-100: #FAFCFC;
+  --color-chia-200: #F2F7F7;
+  --color-chia-300: #EBF2F2;
+  --color-chia-400: #DEE7E7;
+  --color-chia-500: #C9D4D4;
+  --color-chia-600: #B6C2C2;
+  --color-chia-700: #98A3A3;
+  --color-chia-800: #5C6363;
+  --color-chia-900: #393E3E;
+
+  /* Kivid DS — Magenta (rosa, cor institucional principal — 40% do brandbook) */
+  --color-magenta-100: #FDEEF5;
+  --color-magenta-200: #FBD3E6;
+  --color-magenta-300: #F5A9CC;
+  --color-magenta-400: #EE7CB1;
+  --color-magenta-500: #E5509C;
+  --color-magenta-600: #CC3A85;
+  --color-magenta-700: #A82E6C;
+  --color-magenta-800: #822350;
+  --color-magenta-900: #5C1937;
+}
+
+:root {
+  --radius: 1rem;
+  --background: #FAFCFC;
+  --foreground: #393E3E;
+  --card: #FFFFFF;
+  --card-foreground: #393E3E;
+  --popover: #FFFFFF;
+  --popover-foreground: #393E3E;
+  --primary: #3DCC78;            /* Kivid green for this campaign */
+  --primary-foreground: #FFFFFF;
+  --secondary: #F2F7F7;
+  --secondary-foreground: #393E3E;
+  --muted: #F2F7F7;
+  --muted-foreground: #5C6363;
+  --accent: #E9FAF0;
+  --accent-foreground: #206B3F;
+  --destructive: #E65245;
+  --destructive-foreground: #FFFFFF;
+  --border: #DEE7E7;
+  --input: #DEE7E7;
+  --ring: #3DCC78;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: "Nunito", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: "Nunito", sans-serif; letter-spacing: -0.01em; }
+
+  /* Accessible focus ring for keyboard users */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--color-pear-600);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  /* Offset for sticky navbar when jumping to anchors */
+  :where(section[id], [id^="regras"], [id^="como"], [id^="por"]) {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-badge       { animation: fadeUp 0.4s ease both 0.10s; }
+.hero-headline    { animation: fadeUp 0.5s ease both 0.20s; }
+.hero-subheadline { animation: fadeUp 0.4s ease both 0.35s; }
+.hero-cta         { animation: fadeUp 0.4s ease both 0.50s; }
+.hero-image       { animation: fadeIn  0.7s ease both 0.30s; }
+
+/* Floating navbar — aligned with content margins */
+.navbar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 96px);
+  max-width: 1200px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  padding: 10px 24px;
+  z-index: 50;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: background 300ms ease, box-shadow 300ms ease;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .navbar {
+    width: calc(100% - 48px);
+    top: 20px;
+    padding: 12px 20px 12px 24px;
+    gap: 16px;
+  }
+  .navbar > ul { gap: 24px !important; }
+  .navbar > ul a { font-size: 13px; }
+}
+@media (max-width: 767px) {
+  .navbar {
+    width: calc(100% - 32px);
+    border-radius: 20px;
+    padding: 10px 16px;
+  }
+}
+
+/* Hero containment */
+.hero-section { position: relative; overflow: hidden; }
+
+/* Desktop (≥ 1024px) — centered, no image, matches mobile/tablet aesthetic */
+@media (min-width: 1024px) {
+  .hero-section {
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    padding-top: 144px !important;
+    padding-bottom: 96px !important;
+  }
+
+  .hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-copy {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+    width: 100%;
+  }
+  .hero-headline    {
+    text-align: center;
+    font-size: clamp(44px, 5vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin: 0 auto 20px;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .hero-subheadline {
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 56ch;
+    margin: 0 auto 36px;
+    text-wrap: pretty;
+  }
+  .hero-badges      { justify-content: center; margin: 0 0 24px; }
+  .hero-cta-wrapper { align-items: center; width: 100%; max-width: 380px; margin: 0 auto; gap: 12px; }
+  .hero-cta-btn     { width: 100%; height: 60px; font-size: 17px; justify-content: center; }
+
+  .hero-image-col { display: none; }
+}
+
+/* Tablet styles consolidated with mobile below (< 1024px) */
+
+/* Mobile + Tablet (< 1024px) */
+@media (max-width: 1023px) {
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    padding-top: 104px !important;
+    padding-bottom: 56px !important;
+  }
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+  }
+
+  .hero-copy {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+    width: 100%;
+  }
+  .hero-badges      {
+    justify-content: center;
+    margin: 0 0 20px;
+  }
+  .hero-badge       {
+    font-size: 11px;
+    padding: 6px 12px;
+    letter-spacing: 0.12em;
+  }
+  .hero-headline    {
+    text-align: center;
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 auto 18px;
+    hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    max-width: 18ch;
+  }
+  .hero-subheadline {
+    text-align: center;
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.6;
+    max-width: 34ch;
+    margin: 0 auto 28px;
+    text-wrap: pretty;
+  }
+  .hero-cta-wrapper {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    gap: 12px;
+  }
+  .hero-cta-btn     {
+    width: 100%;
+    height: 52px;
+    font-size: 15px;
+    justify-content: center;
+  }
+
+  .hero-image-col { display: none; }
+}
+
+/* Small mobile (< 360px) */
+@media (max-width: 359px) {
+  .hero-headline    { font-size: 26px; }
+  .hero-subheadline { font-size: 13px; }
+}
+
+/* Hero image placeholder / fallback (responsive, stable layout) */
+.hero-image-placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 100%, var(--color-pear-200) 0%, transparent 60%),
+    linear-gradient(180deg, var(--color-chia-200) 0%, var(--color-chia-300) 100%);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-image-col img { position: relative; z-index: 1; }
+.hero-image-col.hero-image-fallback .hero-image-placeholder { opacity: 1; }
+.hero-image-col.hero-image-fallback::after {
+  content: "Família Kivid";
+  position: absolute;
+  inset: auto 0 16% 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-chia-800);
+  z-index: 2;
+}
+
+
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
