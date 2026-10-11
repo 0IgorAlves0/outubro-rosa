@@ -1,5 +1,7 @@
 #!/bin/sh
-# Publica o site em produção no projeto Vercel "kivid-outubro-rosa" (https://kivid-outubro-rosa.vercel.app/).
+# Publicação MANUAL no projeto Vercel "kivid-outubro-rosa" (https://kivid-outubro-rosa.vercel.app/).
+# O fluxo normal é automático: push na branch main do repositório kivid-saude/lp.outubro-rosa.
+# Use este script só se precisar publicar sem passar pelo Git.
 #
 # O build é feito aqui e enviado pronto (--prebuilt), o mesmo que foi testado localmente.
 # Na primeira vez, faça login com `vercel login`.

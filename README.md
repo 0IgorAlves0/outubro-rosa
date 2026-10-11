@@ -40,10 +40,25 @@ A página abre em http://localhost:8080/.
 
 ## Publicar
 
+O deploy é automático: o repositório oficial
+[`kivid-saude/lp.outubro-rosa`](https://github.com/kivid-saude/lp.outubro-rosa) está conectado à
+Vercel, e cada push na branch `main` publica em produção.
+
+Configuração do projeto na Vercel (detectada automaticamente):
+
+| Campo | Valor |
+|---|---|
+| Framework | Other / Nitro (detectado) |
+| Install Command | `npm install` |
+| Build Command | `npm run build` |
+| Node.js | 22.x (fixado em `package.json`) |
+
+O `.npmrc` (`legacy-peer-deps=true`) é necessário: o `@lovable.dev/vite-tanstack-config`
+pede uma versão mais nova do `nitro` como dependência opcional e, sem ele, o `npm install`
+falha com ERESOLVE. Na Vercel, o Nitro detecta o ambiente e gera `.vercel/output` sozinho.
+
+Publicação manual (alternativa, sem passar pelo Git):
+
 ```bash
 sh scripts/deploy.sh
 ```
-
-O `.npmrc` (`legacy-peer-deps=true`) é necessário: o `@lovable.dev/vite-tanstack-config`
-pede uma versão mais nova do `nitro` como dependência opcional e, sem ele, a instalação falha.
-Com ele, a Vercel também consegue fazer o build sozinha se o repositório for conectado no painel.
